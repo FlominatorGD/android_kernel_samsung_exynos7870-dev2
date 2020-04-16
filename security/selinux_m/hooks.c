@@ -111,8 +111,11 @@ static int __init enforcing_setup(char *str)
 {
 	unsigned long enforcing;
 	if (!kstrtoul(str, 0, &enforcing))
-#ifdef CONFIG_ALWAYS_ENFORCE
-		selinux_enforcing = 1;
+// [ SEC_SELINUX_PORTING_COMMON
+#if defined(CONFIG_SECURITY_SELINUX_ALWAYS_ENFORCE)
+ 		selinux_enforcing = 1;
+#elif defined(CONFIG_SECURITY_SELINUX_NEVER_ENFORCE)
+		selinux_enforcing = 0;
 #else
 		selinux_enforcing = enforcing ? 1 : 0;
 #endif
@@ -128,7 +131,8 @@ static int __init selinux_enabled_setup(char *str)
 {
 	unsigned long enabled;
 	if (!kstrtoul(str, 0, &enabled))
-#ifdef CONFIG_ALWAYS_ENFORCE
+// [ SEC_SELINUX_PORTING_COMMON
+#ifdef CONFIG_SECURITY_SELINUX_ALWAYS_ENFORCE
 		selinux_enabled = 1;
 #else
 		selinux_enabled = enabled ? 1 : 0;
