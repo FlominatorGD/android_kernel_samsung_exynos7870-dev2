@@ -5002,3 +5002,4 @@ CONFIG_ARCH_HAS_SG_CHAIN=y
 
 # Additional configs
 CONFIG_DYNAMIC_FSYNC=y
+>>>>>>> c7e37e3af (configs: enable zram, disable zswap)
